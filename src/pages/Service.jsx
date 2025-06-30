@@ -12,7 +12,7 @@ const Service = () => {
   const services = [
     {
       id: 1,
-      image: "/images/ledboard.jpg",
+      image: "ledboard.jpg",
       title: "LED Sign Boards",
       description:
         "High-quality LED sign boards that enhance your brand visibility both day and night. Energy-efficient, durable, and customizable to suit your brand's look and feel.",
@@ -28,7 +28,7 @@ const Service = () => {
     },
     {
       id: 2,
-      image: "/images/landmark.jpg",
+      image: "landmark.jpg",
       title: "Landmark Signage",
       description:
         "Large-scale, creative signs that create lasting impressions and increase walk-in traffic. Turn your location into a recognizable destination.",
@@ -44,7 +44,7 @@ const Service = () => {
     },
     {
       id: 3,
-      image: "/images/acp.jpeg",
+      image: "acp.jpeg",
       title: "ACP Elevation",
       description:
         "Stunning ACP elevation solutions to modernize your building façade. Aluminum Composite Panels offer a sleek, stylish, and weatherproof finish.",
@@ -60,7 +60,7 @@ const Service = () => {
     },
     {
       id: 4,
-      image: "/images/acrylic.jpg",
+      image: "acrylic.jpg",
       title: "Acrylic Scan Boards",
       description:
         "Perfect for a sleek and modern display of your brand identity. High-quality acrylic sheets with glossy and professional finish.",
@@ -76,7 +76,7 @@ const Service = () => {
     },
     {
       id: 5,
-      image: "/images/toughenedglass.jpg",
+      image: "toughenedglass.jpg",
       title: "Toughened Glass",
       description:
         "Strength, safety, and sophistication in one package. Heat-treated glass resistant to breakage and high temperatures.",
@@ -92,7 +92,7 @@ const Service = () => {
     },
     {
       id: 6,
-      image: "/images/glasspartition.jpg",
+      image: "glasspartition.jpg",
       title: "Glass Partitions",
       description:
         "Create open, bright, and elegant spaces. Divide areas without blocking natural light, offering a spacious look.",
@@ -108,7 +108,7 @@ const Service = () => {
     },
     {
       id: 7,
-      image: "/images/wpc.jpg",
+      image: "wpc.jpg",
       title: "WPC Panel Work",
       description:
         "Wood Polymer Composite panels offer a beautiful and durable alternative to traditional wood. Moisture-resistant and termite-proof.",
@@ -124,7 +124,7 @@ const Service = () => {
     },
     {
       id: 8,
-      image: "/images/upvcdoors.jpg",
+      image: "upvcdoors.jpg",
       title: "UPVC Doors & Windows",
       description:
         "Premium UPVC doors and windows built for performance and elegance. Excellent insulation from sound, heat, and weather changes.",
@@ -140,7 +140,7 @@ const Service = () => {
     },
     {
       id: 9,
-      image: "/images/stickers.jpg",
+      image: "stickers.jpg",
       title: "Stickers & Graphics",
       description:
         "High-quality stickers for branding, décor, and promotional needs. Durable vinyl, weather and fade-resistant.",

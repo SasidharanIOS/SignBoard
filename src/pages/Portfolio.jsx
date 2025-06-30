@@ -21,118 +21,118 @@ const Portfolio = () => {
     {
       id: 1,
       category: "LED MODEL",
-      image: "/images/l2.jpg",
+      image: "l2.jpg",
     },
     {
       id: 2,
       category: "LED MODEL",
-      image: "/images/l3.jpg",
+      image: "l3.jpg",
     },
     {
       id: 3,
       category: "LED MODEL",
-      image: "/images/l7.jpg",
+      image: "l7.jpg",
     },
     {
       id: 4,
       category: "LED MODEL",
-      image: "/images/l10.jpg",
+      image: "l10.jpg",
     },
     {
       id: 5,
       category: "LED MODEL",
-      image: "/images/l17.jpg",
+      image: "l17.jpg",
     },
     {
       id: 6,
       category: "LED MODEL",
-      image: "/images/l22.jpg",
+      image: "l22.jpg",
     },
 
     // INDOOR & METAL LETTER category
     {
       id: 7,
       category: "INDOOR & METAL LETTER",
-      image: "/images/i1.jpg",
+      image: "i1.jpg",
     },
     {
       id: 8,
       category: "INDOOR & METAL LETTER",
-      image: "/images/i3.jpg",
+      image: "i3.jpg",
     },
     {
       id: 9,
       category: "INDOOR & METAL LETTER",
-      image: "/images/i4.jpg",
+      image: "i4.jpg",
     },
     {
       id: 10,
       category: "INDOOR & METAL LETTER",
-      image: "/images/i7.jpg",
+      image: "i7.jpg",
     },
     {
       id: 11,
       category: "INDOOR & METAL LETTER",
-      image: "/images/i8.jpg",
+      image: "i8.jpg",
     },
     {
       id: 12,
       category: "INDOOR & METAL LETTER",
-      image: "/images/i10.jpg",
+      image: "i10.jpg",
     },
 
     // MUGAVAREE category
     {
       id: 13,
       category: "MUGAVAREE",
-      image: "/images/m2.jpg",
+      image: "m2.jpg",
     },
     {
       id: 14,
       category: "MUGAVAREE",
-      image: "/images/m6.jpg",
+      image: "m6.jpg",
     },
     {
       id: 15,
       category: "MUGAVAREE",
-      image: "/images/m9.jpg",
+      image: "m9.jpg",
     },
     {
       id: 16,
       category: "MUGAVAREE",
-      image: "/images/m11.jpg",
+      image: "m11.jpg",
     },
     {
       id: 17,
       category: "MUGAVAREE",
-      image: "/images/m13.jpg",
+      image: "m13.jpg",
     },
 
     // ELEVATION category
     {
       id: 18,
       category: "ELEVATION",
-      image: "/images/e1.jpg",
+      image: "e1.jpg",
     },
     {
       id: 19,
       category: "ELEVATION",
-      image: "/images/e5.jpg",
+      image: "e5.jpg",
     },
     {
       id: 20,
       category: "ELEVATION",
-      image: "/images/e6.jpg",
+      image: "e6.jpg",
     },
     {
       id: 21,
       category: "ELEVATION",
-      image: "/images/e8.jpg",
+      image: "e8.jpg",
     },
     {
       id: 22,
       category: "ELEVATION",
-      image: "/images/e9.jpg",
+      image: "e9.jpg",
     },
   ];
 
