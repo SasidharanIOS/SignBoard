@@ -7,27 +7,27 @@ const Home = () => {
   const slides = [
     {
       id: 1,
-      image: "/images/1.jpg", // Replace with your actual image path
+      image: "1.jpg", // Replace with your actual image path
       alt: "Building Architecture 1",
     },
     {
       id: 2,
-      image: "/images/2.jpg", // Replace with your actual image path
+      image: "2.jpg", // Replace with your actual image path
       alt: "Building Architecture 2",
     },
     {
       id: 3,
-      image: "/images/3.jpg", // Replace with your actual image path
+      image: "3.jpg", // Replace with your actual image path
       alt: "Building Architecture 3",
     },
     {
       id: 4,
-      image: "/images/6.jpg", // Replace with your actual image path
+      image: "6.jpg", // Replace with your actual image path
       alt: "Building Architecture 4",
     },
     {
       id: 5,
-      image: "/images/5.jpg", // Replace with your actual image path
+      image: "5.jpg", // Replace with your actual image path
       alt: "Building Architecture 5",
     },
   ];
