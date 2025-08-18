@@ -37,9 +37,9 @@ export default function App() {
             <div className="flex items-center">
               <div className="text-yellow-400 font-bold text-2xl">
                 <img
-                  src="sign.jpg"
+                  src="iconzlogo.png"
                   alt="Company Name Logo"
-                  className="h-16 w-auto mr-2 object-contain"
+                  className="h-8 w-auto mr-2 object-contain"
                 />
               </div>
             </div>
