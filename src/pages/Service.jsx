@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Eye,
   Award,
@@ -16,13 +16,234 @@ import {
   Sparkles
 } from "lucide-react";
 
-const Service = () => {
-  const [activeFilter, setActiveFilter] = useState("ALL");
+// Individual section animation component
+const AnimatedSection = ({ children, className = "", delay = 0, direction = "up" }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const sectionRef = useRef(null);
 
   useEffect(() => {
-    setIsVisible(true);
-  }, []);
+    if (hasAnimated) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setTimeout(() => {
+            setIsVisible(true);
+            setHasAnimated(true);
+          }, delay);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [delay, hasAnimated]);
+
+  const getTransformClasses = () => {
+    const baseClasses = "transform transition-all duration-1000 ease-out";
+    if (isVisible) return `${baseClasses} translate-x-0 translate-y-0 opacity-100`;
+    
+    switch (direction) {
+      case "left":
+        return `${baseClasses} -translate-x-12 opacity-0`;
+      case "right":
+        return `${baseClasses} translate-x-12 opacity-0`;
+      case "down":
+        return `${baseClasses} -translate-y-12 opacity-0`;
+      default: // up
+        return `${baseClasses} translate-y-12 opacity-0`;
+    }
+  };
+
+  return (
+    <div
+      ref={sectionRef}
+      className={`${getTransformClasses()} ${className}`}
+    >
+      {children}
+    </div>
+  );
+};
+
+// Service card with individual animation
+const AnimatedServiceCard = ({ children, index, isEven }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    if (hasAnimated) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setTimeout(() => {
+            setIsVisible(true);
+            setHasAnimated(true);
+          }, 200);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasAnimated]);
+
+  return (
+    <div
+      ref={cardRef}
+      className={`transform transition-all duration-1000 ease-out ${
+        isVisible 
+          ? 'translate-x-0 translate-y-0 opacity-100 scale-100' 
+          : `${isEven ? '-translate-x-8' : 'translate-x-8'} translate-y-8 opacity-0 scale-95`
+      }`}
+    >
+      {children}
+    </div>
+  );
+};
+
+// Stat counter with individual animation
+const StatCounter = ({ icon, number, label, delay = 0 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [count, setCount] = useState(0);
+  const statRef = useRef(null);
+
+  useEffect(() => {
+    if (hasAnimated) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setTimeout(() => {
+            setIsVisible(true);
+            setHasAnimated(true);
+          }, delay);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (statRef.current) {
+      observer.observe(statRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [delay, hasAnimated]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const targetNumber = parseInt(number);
+    const duration = 2000;
+    const steps = 50;
+    const increment = targetNumber / steps;
+    let currentCount = 0;
+
+    const timer = setInterval(() => {
+      currentCount += increment;
+      if (currentCount >= targetNumber) {
+        setCount(targetNumber);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(currentCount));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(timer);
+  }, [isVisible, number]);
+
+  return (
+    <div
+      ref={statRef}
+      className={`text-center text-white group transform transition-all duration-1000 ease-out ${
+        isVisible 
+          ? 'translate-y-0 opacity-100' 
+          : 'translate-y-8 opacity-0'
+      }`}
+    >
+      <div className="mb-3 flex justify-center">
+        <div className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6">
+          {icon}
+        </div>
+      </div>
+      <div className="text-2xl lg:text-4xl font-bold mb-1">
+        {typeof number === 'string' && number.includes('%') 
+          ? `${count}%` 
+          : `${count}+`
+        }
+      </div>
+      <p className="text-sm lg:text-base font-medium opacity-90">{label}</p>
+    </div>
+  );
+};
+
+// Feature grid animation
+const AnimatedFeatures = ({ features, delay = 0 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const featuresRef = useRef(null);
+
+  useEffect(() => {
+    if (hasAnimated) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated) {
+          setTimeout(() => {
+            setIsVisible(true);
+            setHasAnimated(true);
+          }, delay);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    if (featuresRef.current) {
+      observer.observe(featuresRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [delay, hasAnimated]);
+
+  return (
+    <div ref={featuresRef} className="mb-8">
+      <div className="grid grid-cols-2 gap-4">
+        {features.map((feature, idx) => (
+          <div 
+            key={idx} 
+            className={`bg-gray-50 border border-gray-200 rounded-lg p-4 text-center hover:bg-gray-100 transition-all duration-300 hover:scale-105 transform ${
+              isVisible 
+                ? 'translate-y-0 opacity-100' 
+                : 'translate-y-4 opacity-0'
+            }`}
+            style={{ 
+              transitionDelay: `${idx * 100}ms`,
+              transitionDuration: '800ms'
+            }}
+          >
+            <span className="text-sm font-semibold text-gray-800">
+              {feature}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Service = () => {
+  const [activeFilter, setActiveFilter] = useState("ALL");
 
   const filters = [
     "ALL",
@@ -121,9 +342,7 @@ const Service = () => {
         style={{ backgroundColor: '#002852' }}
       >
         <div className="max-w-7xl py-10 mx-auto px-4 lg:px-6">
-          <div className="text-center">
-            
-            
+          <AnimatedSection className="text-center">
             <h1 className="text-3xl py-5 lg:text-5xl font-bold text-white mb-4">
               Showcasing Excellence in{" "}
               <span style={{ color: '#f59e0b' }}>Signage Design</span>
@@ -133,7 +352,7 @@ const Service = () => {
               High-quality visual and architectural solutions tailored to your brand and space, 
               crafted with precision and creativity.
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
 
@@ -142,7 +361,7 @@ const Service = () => {
         <div className="max-w-full">
           
           {/* Section Header */}
-          <div className="text-center mb-12 px-4 lg:px-6">
+          <AnimatedSection className="text-center mb-12 px-4 lg:px-6">
             <p className="text-gray-500 text-xs uppercase tracking-wider mb-2">OUR SERVICES</p>
             <h2 className="text-2xl lg:text-3xl font-bold mb-3" style={{ color: '#1e3a8a' }}>
               Professional Services
@@ -150,7 +369,7 @@ const Service = () => {
             <p className="text-sm lg:text-base text-gray-600 max-w-2xl mx-auto">
               Browse through our comprehensive range of professional services across various categories
             </p>
-          </div>
+          </AnimatedSection>
 
           {/* Services List - Vertical Layout */}
           <div className="space-y-0">
@@ -158,87 +377,66 @@ const Service = () => {
               const isEven = index % 2 === 0;
               
               return (
-                <div
-                  key={service.id}
-                  className="bg-white shadow-sm hover:shadow-md transition-all duration-300"
-                >
-                  <div className="grid lg:grid-cols-2 min-h-[500px]">
-                    {/* Image Section - No padding/margin */}
-                    <div 
-                      className={`relative overflow-hidden ${
-                        isEven ? 'lg:order-1' : 'lg:order-2'
-                      }`}
-                    >
-                      <img
-                        src={`/${service.image}`}
-                        alt={service.title}
-                        className="w-full h-full object-cover min-h-[400px] lg:min-h-[500px]"
-                        onError={(e) => {
-                          // Fallback if image fails to load
-                          e.target.style.display = "none";
-                          e.target.nextSibling.style.display = "flex";
-                        }}
-                      />
-                      {/* Fallback placeholder */}
+                <AnimatedServiceCard key={service.id} index={index} isEven={isEven}>
+                  <div className="bg-white shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="grid lg:grid-cols-2 min-h-[500px]">
+                      {/* Image Section */}
                       <div 
-                        className="w-full h-full bg-gray-100 items-center justify-center min-h-[400px] lg:min-h-[500px] hidden"
-                        style={{ display: "none" }}
+                        className={`relative overflow-hidden group ${
+                          isEven ? 'lg:order-1' : 'lg:order-2'
+                        }`}
                       >
-                        <div className="text-center">
-                          <ImageIcon className="w-16 h-16 lg:w-20 lg:h-20 text-gray-400 mx-auto mb-3" />
-                          <p className="text-sm text-gray-500 font-medium">{service.image}</p>
-                          <p className="text-xs text-gray-400 mt-1">{service.title}</p>
-                        </div>
-                      </div>
-                      
-                    </div>
-
-                    {/* Content Section */}
-                    <div 
-                      className={`flex items-center ${
-                        isEven 
-                          ? 'lg:order-2 pl-8 lg:pl-16 pr-6 lg:pr-8' 
-                          : 'lg:order-1 pr-8 lg:pr-16 pl-6 lg:pl-8'
-                      } py-8 lg:py-16`}
-                    >
-                      <div className="w-full">
-                        
-
-                        {/* Title */}
-                        <h3 
-                          className="text-2xl lg:text-4xl font-bold mb-6 leading-tight"
-                          style={{ color: '#1e3a8a' }}
+                        <img
+                          src={`/${service.image}`}
+                          alt={service.title}
+                          className="w-full h-full object-cover min-h-[400px] lg:min-h-[500px] transition-transform duration-700 group-hover:scale-110"
+                          onError={(e) => {
+                            e.target.style.display = "none";
+                            e.target.nextSibling.style.display = "flex";
+                          }}
+                        />
+                        {/* Fallback placeholder */}
+                        <div 
+                          className="w-full h-full bg-gray-100 items-center justify-center min-h-[400px] lg:min-h-[500px] hidden"
+                          style={{ display: "none" }}
                         >
-                          {service.title}
-                        </h3>
-
-                        {/* Description */}
-                        <p className="text-gray-600 leading-relaxed mb-8 text-base lg:text-lg">
-                          {service.description}
-                        </p>
-
-                        {/* Features Table - Professional 2x2 Grid */}
-                        <div className="mb-8">
-                          <div className="grid grid-cols-2 gap-4">
-                            {service.features.map((feature, idx) => (
-                              <div 
-                                key={idx} 
-                                className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center hover:bg-gray-100 transition-colors duration-200"
-                              >
-                                
-                                <span className="text-sm font-semibold text-gray-800">
-                                  {feature}
-                                </span>
-                              </div>
-                            ))}
+                          <div className="text-center">
+                            <ImageIcon className="w-16 h-16 lg:w-20 lg:h-20 text-gray-400 mx-auto mb-3" />
+                            <p className="text-sm text-gray-500 font-medium">{service.image}</p>
+                            <p className="text-xs text-gray-400 mt-1">{service.title}</p>
                           </div>
                         </div>
+                      </div>
 
-                        
+                      {/* Content Section */}
+                      <div 
+                        className={`flex items-center ${
+                          isEven 
+                            ? 'lg:order-2 pl-8 lg:pl-16 pr-6 lg:pr-8' 
+                            : 'lg:order-1 pr-8 lg:pr-16 pl-6 lg:pl-8'
+                        } py-8 lg:py-16`}
+                      >
+                        <div className="w-full">
+                          {/* Title */}
+                          <h3 
+                            className="text-2xl lg:text-4xl font-bold mb-6 leading-tight transition-colors duration-300 hover:text-[#f59e0b]"
+                            style={{ color: '#1e3a8a' }}
+                          >
+                            {service.title}
+                          </h3>
+
+                          {/* Description */}
+                          <p className="text-gray-600 leading-relaxed mb-8 text-base lg:text-lg">
+                            {service.description}
+                          </p>
+
+                          {/* Features */}
+                          <AnimatedFeatures features={service.features} delay={400} />
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </AnimatedServiceCard>
               );
             })}
           </div>
@@ -252,43 +450,36 @@ const Service = () => {
       >
         <div className="max-w-7xl mx-auto px-4 lg:px-6">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            <div className="text-center text-white">
-              <div className="mb-3 flex justify-center">
-                <Grid className="w-8 h-8 lg:w-10 lg:h-10" />
-              </div>
-              <div className="text-2xl lg:text-4xl font-bold mb-1">150+</div>
-              <p className="text-sm lg:text-base font-medium opacity-90">Projects Completed</p>
-            </div>
-            
-            <div className="text-center text-white">
-              <div className="mb-3 flex justify-center">
-                <Users className="w-8 h-8 lg:w-10 lg:h-10" />
-              </div>
-              <div className="text-2xl lg:text-4xl font-bold mb-1">120+</div>
-              <p className="text-sm lg:text-base font-medium opacity-90">Happy Clients</p>
-            </div>
-            
-            <div className="text-center text-white">
-              <div className="mb-3 flex justify-center">
-                <Award className="w-8 h-8 lg:w-10 lg:h-10" />
-              </div>
-              <div className="text-2xl lg:text-4xl font-bold mb-1">15+</div>
-              <p className="text-sm lg:text-base font-medium opacity-90">Years Experience</p>
-            </div>
-            
-            <div className="text-center text-white">
-              <div className="mb-3 flex justify-center">
-                <Star className="w-8 h-8 lg:w-10 lg:h-10" />
-              </div>
-              <div className="text-2xl lg:text-4xl font-bold mb-1">98%</div>
-              <p className="text-sm lg:text-base font-medium opacity-90">Client Satisfaction</p>
-            </div>
+            <StatCounter
+              icon={<Grid className="w-8 h-8 lg:w-10 lg:h-10" />}
+              number="150"
+              label="Projects Completed"
+              delay={0}
+            />
+            <StatCounter
+              icon={<Users className="w-8 h-8 lg:w-10 lg:h-10" />}
+              number="120"
+              label="Happy Clients"
+              delay={100}
+            />
+            <StatCounter
+              icon={<Award className="w-8 h-8 lg:w-10 lg:h-10" />}
+              number="15"
+              label="Years Experience"
+              delay={200}
+            />
+            <StatCounter
+              icon={<Star className="w-8 h-8 lg:w-10 lg:h-10" />}
+              number="98%"
+              label="Client Satisfaction"
+              delay={300}
+            />
           </div>
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="py-16 bg-white">
+      <AnimatedSection className="py-16 bg-white">
         <div className="max-w-4xl mx-auto text-center px-4 lg:px-6">
           <h2 
             className="text-2xl lg:text-3xl font-bold mb-4"
@@ -303,13 +494,13 @@ const Service = () => {
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button 
-              className="px-6 py-3 text-white font-medium rounded-lg transition-all duration-300 hover:opacity-90"
+              className="px-6 py-3 text-white font-medium rounded-lg transition-all duration-300 hover:opacity-90 hover:scale-105"
               style={{ backgroundColor: '#f59e0b' }}
             >
               Get Free Quote
             </button>
             <button 
-              className="px-6 py-3 font-medium rounded-lg border-2 transition-all duration-300 hover:text-white"
+              className="px-6 py-3 font-medium rounded-lg border-2 transition-all duration-300 hover:text-white hover:scale-105"
               style={{ 
                 borderColor: '#1e3a8a',
                 color: '#1e3a8a'
@@ -327,7 +518,7 @@ const Service = () => {
             </button>
           </div>
         </div>
-      </div>
+      </AnimatedSection>
     </div>
   );
 };
